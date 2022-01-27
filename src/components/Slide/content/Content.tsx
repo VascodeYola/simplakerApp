@@ -25,10 +25,6 @@ function Content(props: Props) {
   const contentRef = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
   const emptyRef = React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 
-  console.log('ads');
-  console.log(props.content.coordinates);
-
-
   const [newCoord, setCoord] = React.useState({ x: props.content.coordinates.x, y: props.content.coordinates.y });
 
   function setContentCoordinates(position: Point) {
@@ -50,8 +46,8 @@ function Content(props: Props) {
   contentStyle.width = slideRatio * props.content.width;
   contentStyle.height = slideRatio * props.content.height;
   if (props.draggable) {
-    contentStyle.left = slideRatio * newCoord.x;
-    contentStyle.top = slideRatio * newCoord.y;
+    contentStyle.left = newCoord.x;
+    contentStyle.top = newCoord.y;
   } else {
     contentStyle.left = slideRatio * props.content.coordinates.x;
     contentStyle.top = slideRatio * props.content.coordinates.y;
@@ -104,7 +100,6 @@ function Content(props: Props) {
     default:
       element = <span></span>
   }
-  console.log(contentStyle);
   return (
     <div className={(props.content.id !== props.activeContent || props.modeEditor === "view") ? "content" : "content content_active"}
       ref={(props.draggable) ? contentRef : emptyRef}
